@@ -1,7 +1,5 @@
 # Báo cáo cá nhân — Nguyễn Thuỳ Dương
 
-MSSV: 2A202603388. Email: 26ai.duongnt8@vinuni.edu.vn.
-
 ## 1. Thông tin thành viên
 
 - Họ tên: Nguyễn Thuỳ Dương
@@ -32,20 +30,16 @@ Tôi soạn bảng khắc phục cho các ca 1, 7, 18, 19, 17, đại diện đ�
 
 Nhánh làm việc: `label1`.
 
-| Phần việc | File | Commit minh chứng |
-| --- | --- | --- |
-| Bộ nhãn ban đầu và bảng khắc phục 5 ca | `report/team/bang_loi.md` | `dfed08c` |
-| Cập nhật nhãn sau đối chiếu | `report/team/bang_loi.md` | `548be28` |
-| Hoàn thiện B3 và B4 | `report/team/bang_chi_phi.md` | `bf8243e` |
-| Làm rõ D2 và các trường kế hoạch liên quan | `report/team/pilot_plan.yaml` | `679bc03` |
+| Phần việc                                  | File                          | Commit minh chứng |
+| ------------------------------------------ | ----------------------------- | ----------------- |
+| Bộ nhãn ban đầu và bảng khắc phục 5 ca     | `report/team/bang_loi.md`     | `dfed08c`         |
+| Cập nhật nhãn sau đối chiếu                | `report/team/bang_loi.md`     | `548be28`         |
+| Hoàn thiện B3 và B4                        | `report/team/bang_chi_phi.md` | `bf8243e`         |
+| Làm rõ D2 và các trường kế hoạch liên quan | `report/team/pilot_plan.yaml` | `679bc03`         |
 
 ## 5. Công cụ AI đã dùng
 
-Tôi dùng ChatGPT để giải thích đề và 5 loại lỗi, rà soát bộ nhãn tự làm, gợi ý bảng khắc phục, soạn câu trả lời B3–B4, hoàn thiện D2 và hỗ trợ thao tác Git.
-
-Việc rà soát dựa trên mô tả từng ca trong đề, định nghĩa loại lỗi và số đối chiếu trong `docs/Lab13_Huong_dan_chi_tiet_buoi_chieu.md`. Không coi số liệu do AI nêu là kết quả code đã được nhóm xác minh; B3–B4 có ghi nguồn và nhãn `simulated` để đối chiếu khi tích hợp. Không dùng AI tạo bộ nhãn độc lập của người 2 hoặc tự tạo kết quả đồng thuận.
-
-Giới hạn kiểm tra: thay đổi D2 đã qua `git diff --check`; chưa xác nhận bằng `yaml.safe_load` trong môi trường hiện tại do thiếu thư viện `pyyaml`.
+Tôi dùng ChatGPT để giải thích khái niệm, rà soát nhãn tự làm, hỗ trợ soạn bảng khắc phục, B3–B4, D2 và thao tác Git. Nội dung được đối chiếu với đề và hướng dẫn; số liệu B3–B4 cần kiểm tra lại với output code của nhóm, có ghi nguồn và nhãn `simulated`.
 
 ## 6. Tự đánh giá
 
