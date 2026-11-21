@@ -108,3 +108,52 @@ if __name__ == '__main__':
     print(f'cps_trong_pham_vi={r["tong"]/tc:,.0f}')
     print(f'cps_plus_co_dinh={r["tong"]/tc + 40000000/(45000*tc/1200):,.0f}')
     print(f'cps_plus_co_dinh_mot_nua={r["tong"]/tc + 40000000/(45000*tc/1200/2):,.0f}')
+
+    print()
+    print('=== B1 · Đổi từng yếu tố ===')
+    kich_ban = {
+        'Gia token gap doi': dict(gia_vao=52, gia_ra=260),
+        'Gia token giam mot nua': dict(gia_vao=13, gia_ra=65),
+        'Xem lai gap doi': dict(he_so_xem_lai=2),
+        'Xem lai giam mot nua': dict(he_so_xem_lai=0.5),
+        'Lam lai gap doi': dict(he_so_lam_lai=2),
+        'Lam lai giam mot nua': dict(he_so_lam_lai=0.5),
+        'Luong nhan vien tang 25%': dict(luong_phut=2500),
+        'Chi cho chay toi da 2 lan': dict(max_lan_chay=2),
+        'Chi cho chay 1 lan': dict(max_lan_chay=1),
+    }
+    goc = mo_hinh(runs, reqs)['cps']
+    for ten, kw in kich_ban.items():
+        cps = mo_hinh(runs, reqs, **kw)['cps']
+        print(f'{ten:30s} {cps:8,.0f} {(cps/goc - 1)*100:+6.1f}%')
+
+    print()
+    print('=== B2 · Doi mot cap ===')
+    cps_cap = mo_hinh(runs, reqs, gia_vao=52, gia_ra=260, he_so_xem_lai=2)['cps']
+    print(f'Gia token gap doi + xem lai gap doi: {cps_cap:,.0f} ({(cps_cap/goc-1)*100:+.1f}%)')
+
+    print()
+    print('=== B3 · Gioi han chay lai ===')
+    for k in [1, 2, 3]:
+        r = mo_hinh(runs, reqs, max_lan_chay=k)
+        khong_tc = len(reqs) - r['thanh_cong']
+        he_thong = r['tong'] + khong_tc * 12000
+        print(f'Gioi han {k} lan: tro ly={r["tong"]:>12,.0f} khong_thanh_cong={khong_tc:4d} '
+              f'he_thong={he_thong:>12,.0f} cps={r["cps"]:8,.0f}')
+
+    print()
+    print('=== B4 · Xem lai 100% (noi_dia + hang_nang) ===')
+    sub_reqs = reqs[reqs.loai.isin(['noi_dia', 'hang_nang'])]
+    sub_runs = runs[runs['request_id'].isin(sub_reqs['request_id'])]
+    co_it_nhat_mot_ok = sub_runs[sub_runs['status'] == 'ok']['request_id'].nunique()
+    so_ca_lam_lai = (sub_reqs['ket_qua'] == 'lam_lai').sum()
+    tong_token_tool = mo_hinh(runs, sub_reqs)['token'] + mo_hinh(runs, sub_reqs)['tool']
+    xem_lai_100 = co_it_nhat_mot_ok * 5 * LUONG_PHUT
+    lam_lai_100 = so_ca_lam_lai * 9 * LUONG_PHUT
+    tong_b4 = tong_token_tool + xem_lai_100 + lam_lai_100
+    tc_b4 = (sub_reqs['ket_qua'] == 'thanh_cong').sum()
+    print(f'co_it_nhat_mot_ok={co_it_nhat_mot_ok} xem_lai={xem_lai_100:,.0f}')
+    print(f'so_ca_lam_lai={so_ca_lam_lai} lam_lai={lam_lai_100:,.0f}')
+    print(f'tong_token_tool={tong_token_tool:,.0f}')
+    print(f'tong_b4={tong_b4:,.0f} thanh_cong={tc_b4} cps={tong_b4/tc_b4:,.0f} '
+          f'so_voi_12000={tong_b4/tc_b4/12000:.2f}x')
