@@ -10,11 +10,11 @@
 #   e) Mức chênh 6 điểm (859 mỗi nhóm), 20 nhân viên mỗi nhóm: m ≥ 299 yêu cầu mỗi người (DE = 6,96)
 
 # D2 · Năm câu kiểm tra "tách được tác động" với cách chia đã chọn (mỗi câu một dòng):
-#   1. Đối chứng chạy cùng thời gian: Có, 20 nhân viên đối chứng làm cùng tuần, cùng depot.
-#   2. Chia ngẫu nhiên hay do người chọn: Ngẫu nhiên, bốc thăm bằng code với seed ghi trước, phân tầng theo depot.
-#   3. Ảnh hưởng gián tiếp: Có rủi ro chia sẻ câu trả lời trong depot; giảm bằng quyền truy cập theo tài khoản và log lượt mở trợ lý theo staff_id.
-#   4. Chỉ số chính, ngưỡng, ngày quyết định đã viết trước: Có, chỉ số chính, ngưỡng, luật dừng và ngày quyết định chốt trước ngày bắt đầu.
-#   5. Ít nhất 20 cụm mỗi nhóm: Có, đúng 20 cụm mỗi nhóm (chia theo nhân viên).
+#   1. Đối chứng chạy cùng thời gian: Theo kế hoạch, 20 nhân viên đối chứng xử lý cùng loại yêu cầu, cùng tuần và trong các depot có nhóm trợ lý; so sánh chính thức từ bước rollout 0,50.
+#   2. Chia ngẫu nhiên hay do người chọn: Ngẫu nhiên theo nhân viên, phân tầng theo depot, seed cố định 20261121; phân bổ tổng cộng 20 người mỗi nhóm và lưu danh sách trước khi chạy, không chia lại theo kết quả.
+#   3. Ảnh hưởng gián tiếp và cách giảm: Có rủi ro chia sẻ gợi ý giữa đồng nghiệp; chỉ cấp quyền trợ lý cho nhóm can thiệp, không chia sẻ gợi ý sang đối chứng, ghi staff_id/arm/trace_id khi mở trợ lý và rà soát truy cập sai nhóm hằng tuần.
+#   4. Chỉ số chính, ngưỡng, ngày quyết định đã viết trước: Phải chốt phiên bản kế hoạch trước khi chạy: chỉ số đóng trong 24 giờ không mở lại 7 ngày, MDE 0,06, alpha 0,05, power 0,80, luật dừng và ngày quyết định 2027-01-05; chỉ phân tích yêu cầu đã đủ 7 ngày theo dõi.
+#   5. Ít nhất 20 cụm mỗi nhóm: Có theo thiết kế, mỗi nhân viên là 1 cụm, gồm 20 can thiệp + 20 đối chứng; cần ít nhất 299 yêu cầu thuộc phạm vi/người trong giai đoạn đo chính thức và kiểm tra đủ 20 cụm mỗi nhóm khi phân tích.
 
 # Đánh đổi đã chấp nhận (nếu cách chia chưa đạt cả hai điều kiện):
 #   Chấp nhận mức chênh 6 điểm thay vì 5 điểm vì không đủ nhân viên (chỉ 40 NV, không đủ 84 NV cần thiết cho mức chênh 5 điểm).
@@ -33,6 +33,8 @@ pilot:
     unit: "staff"
     control_share: 0.5
     randomized: true
+    random_seed: 20261121
+    stratify_by: "depot"
   rollout: [0.10, 0.25, 0.50]   # 4 → 10 → 20 nhân viên; chỉ đo chỉ số chính từ bước 0.50
   primary_metric:
     name: dong_trong_24h_khong_mo_lai_7_ngay
@@ -44,9 +46,9 @@ pilot:
     design_effect: 6.96
     clusters_per_arm: 20
   identifiability:
-    concurrent_control: "Có, 20 nhân viên đối chứng làm cùng tuần, cùng depot"
-    spillover_risk: "Có rủi ro chia sẻ câu trả lời trong depot; giảm bằng quyền truy cập theo tài khoản và log lượt mở trợ lý theo staff_id"
-    predeclared: "Có, chỉ số chính, ngưỡng, luật dừng và ngày quyết định chốt trước ngày bắt đầu"
+    concurrent_control: "20 nhân viên đối chứng xử lý cùng loại yêu cầu, cùng tuần và trong các depot có nhóm trợ lý; so sánh chính thức từ bước rollout 0,50, giữ nguyên nhóm đã phân bổ"
+    spillover_risk: "Có thể chia sẻ gợi ý trong depot; chỉ cấp quyền trợ lý cho nhóm can thiệp, không chia sẻ gợi ý sang đối chứng; ghi staff_id, arm, trace_id khi mở trợ lý và rà soát truy cập sai nhóm hằng tuần; quyền truy cập không loại bỏ hoàn toàn ảnh hưởng gián tiếp"
+    predeclared: "Chốt và lưu phiên bản kế hoạch cùng danh sách phân nhóm trước khi chạy: chỉ số chính, MDE 0,06, alpha 0,05, power 0,80, luật dừng, ngày quyết định 2027-01-05; chỉ phân tích yêu cầu đủ 7 ngày theo dõi, không đổi kế hoạch theo kết quả giữa kỳ"
   stop_rules:
     - "NẾU mở lại 7 ngày của nhóm trợ lý cao hơn đối chứng ≥ 2 điểm hoặc vượt 6%, hoặc có ≥ 1 ca hoàn trùng TRONG 3 ngày liên tiếp THÌ Giám đốc vận hành tắt trợ lý trong 30 phút KHÔNG THÌ không được sang bước rollout tiếp"
     - "NẾU chi phí mỗi việc thành công > 8.000 đ TRONG 2 tuần liên tiếp THÌ PM thu hẹp về noi_dia và giới hạn 2 lần chạy KHÔNG THÌ không được mở hang_nang"
