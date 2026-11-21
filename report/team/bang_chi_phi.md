@@ -68,15 +68,19 @@ Số tính bằng `src/lab13.py`. Mọi con số tính từ cột `_simulated` g
 
 ## B3 · Giới hạn chạy lại có thật sự rẻ hơn
 
+Các khoản chi phí trong bảng có sử dụng thời gian `simulated`, chưa gồm chi phí cố định. Chi phí cả hệ thống = tổng chi phí trợ lý + 12.000 đ × số yêu cầu không thành công.
+
 | Giới hạn | Tổng chi phí trợ lý | Số yêu cầu không thành công | Chi phí cả hệ thống | Chi phí mỗi việc thành công |
 | --- | ---: | ---: | ---: | ---: |
-| 1 lần | ... | ... | ... | ... |
-| 2 lần | ... | ... | ... | ... |
-| 3 lần | ... | ... | ... | ... |
+| 1 lần | 3.621.781 đ | 319 | 7.449.781 đ | 4.111 đ |
+| 2 lần | 4.093.220 đ | 234 | 6.901.220 đ | 4.237 đ |
+| 3 lần | 4.373.585 đ | 222 | 7.037.585 đ | 4.472 đ |
 
-- Giới hạn nào rẻ nhất cho công ty? Có trùng với giới hạn cho chi phí mỗi việc thành công thấp nhất không? ...
+- Giới hạn 2 lần rẻ nhất cho công ty: 6.901.220 đ cả hệ thống (`simulated`). Không trùng với chi phí mỗi việc thành công thấp nhất ở 1 lần (4.111 đ), vì giới hạn 1 lần đẩy thêm 85 yêu cầu sang nhân viên so với 2 lần.
 
 ## B4 · Nếu phải xem lại tất cả
 
-- Chi phí mỗi việc thành công khi xem lại 100% (`noi_dia` + `hang_nang`), so với 12.000 đ: ...
-- Kết quả này nói gì về thứ pilot cần học được? ...
+- Chi phí mỗi việc thành công khi xem lại 100% (`noi_dia` + `hang_nang`): (224.513 + 948 × 5 × 2.000 + 48 × 9 × 2.000) / 900 = 11.743 đ = 0,98× mức 12.000 đ; nếu làm lại mất 15,3 phút/ca thì tăng lên 12.414 đ = 1,03× (`simulated`, chưa gồm chi phí cố định).
+- Pilot cần đo thời gian xem lại, làm lại thực tế và xác định mức giảm xem lại vẫn an toàn; ngưỡng hòa vốn khi xem lại 100% là khoảng 5,1 phút/ca với 9 phút làm lại, hoặc 4,8 phút/ca với 15,3 phút làm lại (`simulated`).
+
+Nguồn số liệu B3–B4: bảng đối chiếu và giả định trong `docs/Lab13_Huong_dan_chi_tiet_buoi_chieu.md`; cần đối chiếu lại với output `src/lab13.py` của nhóm khi tích hợp bài.
