@@ -2,19 +2,21 @@
 
 ## Thông tin nhóm
 
-- Tên nhóm:
-- Lớp: L3A hoặc L3B
-- Repo nhóm: `K5-L3A-DAY13-TenNhom-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt:
+- Tên nhóm: TeamA
+- Lớp: L3A
+- Repo nhóm: `K5-L3A-DAY13-TeamA-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
+- URL repo: https://github.com/TruongXuan-Vu/K5-L3A-DAY13-TeamA-LaunchEconomics
+- Nhánh nộp: main
+- Commit chốt: <sẽ điền sau khi commit>
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
-|   3 |        |      |       |        |         |
-|   4 |        |      |       |        |         |
+|   1 | Vũ Xuân Trường | 2A202603433 | 26ai.truongvx@vinuni.edu.vn | TruongXuan-Vu | Người viết code |
+|   2 | Hoàng Bảo Nguyên | 2A202603384 | 26ai.nguyenhb@vinuni.edu.vn | Stormaka | Người kiểm số |
+|   3 | Trần Thị Lý | 2A202603404 | 26ai.lytt@vinuni.edu.vn | lytrann236 | Người gắn nhãn 1 |
+|   4 | Nguyễn Thùy Dương | 2A202603388 | 26ai.duongnt8@vinuni.edu.vn | NTD-DUONG | Người gắn nhãn 2, kiêm giữ hồ sơ |
 
 Bốn vai của lab:
 
