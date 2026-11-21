@@ -6,30 +6,30 @@
 
 Người gắn nhãn 1: ... · Người gắn nhãn 2: ... (gắn trong 8 phút, không trao đổi)
 
-Cột “Nhãn người 1” lưu bộ nhãn ban đầu người 1 đã cung cấp trước khi đối chiếu với ChatGPT; chỉ chuẩn hóa chính tả “Ngâm” thành “Ngầm”. Bản sửa sau đối chiếu không được dùng thay cho bộ nhãn độc lập ban đầu khi tính đồng thuận.
+Cột “Nhãn người 1” là bản đã sửa sau đối chiếu với ChatGPT, theo bảng người 1 xác nhận. Khi tính đồng thuận độc lập, dùng bộ nhãn ban đầu lưu tại commit `dfed08c`, không dùng bản đã sửa này.
 
 | Ca | Nhãn người 1 | Nhãn người 2 | Trùng? | Nhãn thống nhất |
 | --: | --- | --- | --- | --- |
 | 1 | Do người dùng | ... | ... | ... |
 | 2 | Hệ thống | ... | ... | ... |
-| 3 | Ngầm | ... | ... | ... |
-| 4 | Ngầm | ... | ... | ... |
+| 3 | Ngữ cảnh | ... | ... | ... |
+| 4 | Giới hạn hệ thống | ... | ... | ... |
 | 5 | Ngầm | ... | ... | ... |
 | 6 | Do người dùng | ... | ... | ... |
-| 7 | Ngầm | ... | ... | ... |
-| 8 | Giới hạn hệ thống | ... | ... | ... |
+| 7 | Hệ thống | ... | ... | ... |
+| 8 | Hệ thống | ... | ... | ... |
 | 9 | Do người dùng | ... | ... | ... |
-| 10 | Hệ thống | ... | ... | ... |
+| 10 | Ngữ cảnh | ... | ... | ... |
 | 11 | Giới hạn hệ thống | ... | ... | ... |
 | 12 | Ngầm | ... | ... | ... |
-| 13 | Ngữ cảnh | ... | ... | ... |
+| 13 | Giới hạn hệ thống | ... | ... | ... |
 | 14 | Do người dùng | ... | ... | ... |
 | 15 | Hệ thống | ... | ... | ... |
 | 16 | Ngữ cảnh | ... | ... | ... |
 | 17 | Ngầm | ... | ... | ... |
 | 18 | Ngữ cảnh | ... | ... | ... |
 | 19 | Giới hạn hệ thống | ... | ... | ... |
-| 20 | Ngầm | ... | ... | ... |
+| 20 | Hệ thống | ... | ... | ... |
 
 **Tỉ lệ đồng thuận:** ... / 20 = ...%
 
