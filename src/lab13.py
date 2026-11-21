@@ -157,3 +157,46 @@ if __name__ == '__main__':
     print(f'tong_token_tool={tong_token_tool:,.0f}')
     print(f'tong_b4={tong_b4:,.0f} thanh_cong={tc_b4} cps={tong_b4/tc_b4:,.0f} '
           f'so_voi_12000={tong_b4/tc_b4/12000:.2f}x')
+
+    print()
+    print('=== D1 · Cỡ mẫu theo ba cách chia ===')
+    from statistics import NormalDist
+    import math
+
+    def co_mau(p1, p2, alpha=0.05, power=0.8):
+        za, zb = NormalDist().inv_cdf(1 - alpha / 2), NormalDist().inv_cdf(power)
+        pb = (p1 + p2) / 2
+        return math.ceil((za * math.sqrt(2 * pb * (1 - pb))
+                          + zb * math.sqrt(p1 * (1 - p1) + p2 * (1 - p2))) ** 2 / (p2 - p1) ** 2)
+
+    p1, p2 = 0.70, 0.75
+    alpha, power, ICC = 0.05, 0.80, 0.02
+    n_base = co_mau(p1, p2, alpha, power)
+    print(f'a) Chia theo yêu cầu: n = {n_base} yêu cầu mỗi nhóm')
+
+    # b) Theo nhân viên, m = 75
+    m = 75
+    DE = 1 + (m - 1) * ICC
+    n_b = n_base * DE
+    print(f'b) Theo nhân viên, m = 75: DE = 1 + {(m-1):.0f} × {ICC} = {DE:.2f}; '
+          f'n = {n_base} × {DE:.2f} = {math.ceil(n_b)} mỗi nhóm -> cần {math.ceil(n_b/75)} người mỗi nhóm, '
+          f'tổng {math.ceil(n_b/75)*2} > 40: KHÔNG ĐỦ NGƯỜI')
+
+    # c) 20 nhân viên mỗi nhóm
+    c_per_arm = 20
+    n_eff_max = c_per_arm / ICC
+    print(f'c) 20 nhân viên mỗi nhóm: cỡ mẫu hiệu dụng tối đa = {n_eff_max:.0f} < {n_base}: KHÔNG ĐẠT')
+
+    # d) 6 depot mỗi nhóm
+    c_per_arm_d = 6
+    n_eff_max_d = c_per_arm_d / ICC
+    print(f'd) 6 depot mỗi nhóm: cỡ mẫu hiệu dụng tối đa = {n_eff_max_d:.0f}')
+
+    # e) Mức chênh 6 điểm (859 mỗi nhóm), 20 nhân viên mỗi nhóm
+    n_target = 859
+    # solve 20m / (1 + (m-1)*0.02) >= 859
+    # 20m >= 859 * (0.98 + 0.02m) -> 20m - 17.18m >= 841.82 -> 2.82m >= 841.82 -> m >= 298.5 -> 299
+    m_min = math.ceil((n_target * (1 - ICC)) / (c_per_arm - n_target * ICC))
+    DE_e = 1 + (m_min - 1) * ICC
+    print(f'e) Mức chênh 6 điểm ({n_target} mỗi nhóm), 20 nhân viên mỗi nhóm: '
+          f'm ≥ {m_min} yêu cầu mỗi người (DE = {DE_e:.2f})')
